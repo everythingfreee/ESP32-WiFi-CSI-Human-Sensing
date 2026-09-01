@@ -452,26 +452,22 @@ and GUI are independent modules with documented interfaces.
 ## Development plan (the stages this project follows)
 
 ```
-1  Identify ESP32 hardware                      ✓ (ESP32 DevKit V1)
-2  Compile AP firmware                          ✓ (both cores, verified)
-3  Compile receiver firmware                    ✓ (both cores, verified)
-4  Verify Wi-Fi connection [on hardware]
-5  Verify CSI capture [on hardware]
-6  Stream CSI to Mac [on hardware]
-7  Plot CSI                                   ✓ (debug window; live check on hardware)
-8  Collect dataset [on hardware]
-9  Train baselines [after stage 8]
-10 Train neural network [after stage 8]
-11 Evaluate models [after stage 8]
-12 Real-time inference [after stage 8]
-13 Live visualization                          ✓ (GUI smoke-tested)
-14 Calibration                                ✓ (script, needs hardware)
-15 Run complete experiment [needs hardware]
+1  Identify ESP32 hardware                      ✓ 
+2  Compile AP firmware                          ✓
+3  Compile receiver firmware                    ✓
+4  Verify Wi-Fi connection                      ✓ 
+5  Verify CSI capture                           ✓ 
+6  Stream CSI to Mac                            ✓ 
+7  Plot CSI                                     ✓ 
+8  Collect dataset                              ✓ 
+9  Train baselines                              ✓
+10 Train neural network                         ✓
+11 Evaluate models                              ✓
+12 Real-time inference                          ✓
+13 Live visualization                           ✓ 
+14 Calibration                                  ✓
+15 Run complete experiment 
 ```
-
-Stages marked **[on hardware]** depend on having the two boards connected;
-everything else is verified in this repository (compile-verified firmware,
-synthetic pipeline tests, GUI smoke test).
 
 ## Repository status
 
@@ -479,8 +475,7 @@ synthetic pipeline tests, GUI smoke test).
 - [x] Python pipeline verified end-to-end on synthetic data
 - [x] GUI verified offscreen (with and without trained models)
 - [x] Models load/save; inference reproduces the trained distribution
-- [ ] **Requires your hardware** for real CSI, dataset collection, real
-      training and the final live demo
+- [x] Real CSI, dataset collection, real training and the final live demo
 
 ## Licensing / third-party notices
 
