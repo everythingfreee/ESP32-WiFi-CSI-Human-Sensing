@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Data artifacts (keep .gitkeep, ignore generated content)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/models/*
+!data/models/.gitkeep
+logs/*
+!logs/.gitkeep
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/

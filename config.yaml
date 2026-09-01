@@ -1,0 +1,85 @@
+# ============================================================
+# Wi-Fi CSI Human Position Sensing — configuration
+# All values documented in python/config.py DEFAULTS.
+# Paths are relative to the project root. CLI flags override these.
+# ============================================================
+
+# --- Serial link to ESP32-B (spec keys: serial_port, baud_rate) ---
+serial_port: auto          # "auto" scans, or e.g. /dev/cu.usbmodem1101
+baud_rate: 921600          # must equal SERIAL_BAUD in the receiver firmware
+
+# --- Nominal CSI rate (spec key: sample_rate) ---
+sample_rate: 60            # Hz; must equal TRAFFIC_RATE_HZ in the firmware
+
+# --- Room geometry (spec keys: room_width, room_length) ---
+room_width: 5.0            # metres between ESP32-A and ESP32-B
+room_length: 4.0
+
+# --- Tracking (spec keys: smoothing_factor, presence_threshold,
+#     movement_threshold) ---
+smoothing_factor: 0.35     # position EMA alpha; lower = smoother, more lag
+presence_threshold: 0.5
+movement_threshold: 0.12   # auto-overridden from calibration if enabled
+
+# --- Storage (spec key: model_path) ---
+model_path: data/models
+dataset_path: data/processed/dataset.csv
+raw_dir: data/raw
+processed_dir: data/processed
+log_dir: logs
+log_level: INFO
+
+# --- CSI preprocessing (each step explained in preprocessing.py) ---
+csi:
+  expect_length_20mhz: 128      # 64 subcarrier slots x 2 bytes (20 MHz)
+  valid_subcarriers_20mhz: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+    14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 32, 33, 34, 35, 36,
+    37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54,
+    55, 56, 57, 58]
+  ht_only: false                # true = only HT data frames (probe echoes)
+  drop_rx_state_errors: true    # discard packets the ESP32 flagged as corrupt
+  drop_first_word_invalid: true # discard samples with the documented HW issue
+  phase_features: false         # ESP32 phase is noisy; amplitude-only default
+  outlier_mad_threshold: 3.5    # Hampel filter threshold (MAD units)
+  smoothing: ema                # ema | moving_avg | none
+  smoothing_alpha: 0.25
+  smoothing_window: 5
+  lowpass_enabled: false        # optional Butterworth low-pass along time
+  lowpass_cutoff_hz: 10.0
+  lowpass_order: 4
+  max_gap_seconds: 0.5          # stream gaps larger than this reset filters
+
+# --- Feature extraction ---
+features:
+  window_size: 64               # samples per window (~1 s at 60 Hz)
+  stride: 8                     # new feature vector every N samples
+  spectral_bands: 4
+  include_per_subcarrier: true
+
+# --- Detection smoothing ---
+presence:
+  smoothing_alpha: 0.6
+movement:
+  smoothing_alpha: 0.5
+  auto_threshold_from_calibration: true
+  calibration_file: data/processed/calibration.json
+
+# --- GUI ---
+gui:
+  update_hz: 30
+  debug_window: true
+  debug_plot_samples: 300
+
+# --- Training ---
+train:
+  seed: 42
+  test_fraction: 0.2
+  val_fraction: 0.2
+  knn_neighbors: 7
+  rf_estimators: 200
+  nn_epochs: 60
+  nn_batch_size: 64
+  nn_learning_rate: 0.001
+  nn_dropout: 0.2
+  nn_hidden: [64, 32]
+  nn_patience: 8
