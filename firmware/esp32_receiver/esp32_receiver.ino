@@ -19,7 +19,7 @@
 #define WIFI_CHANNEL        6               // informational only
 #define TRAFFIC_RATE_HZ     60              // probe rate
 #define TRAFFIC_PAYLOAD     "CSI_PROBE"
-#define SERIAL_BAUD         921600          // use 115200 for debugging (later increase)
+#define SERIAL_BAUD         921600          
 #define CONNECT_TIMEOUT_MS  30000UL
 #define RECONNECT_PERIOD_MS 5000UL
 #define RESTART_AFTER_MS    120000UL

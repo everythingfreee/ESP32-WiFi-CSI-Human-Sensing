@@ -42,7 +42,7 @@ You only need to power the board over USB. No extra wiring is required.
 | `WIFI_CHANNEL`      | fixed Wi-Fi channel                            | 6            |
 | `UDP_ECHO_PORT`     | probe/echo port (must match receiver)          | 8765         |
 | `HEARTBEAT_RATE_HZ` | AP-side broadcast rate (0 disables)            | 10           |
-| `SERIAL_BAUD`       | USB serial baud                                | 115200       |
+| `SERIAL_BAUD`       | USB serial baud                                | 921600       |
 
 The AP bandwidth is pinned to **HT20** so CSI buffers always have the
 expected 128-byte length at the receiver.
@@ -62,7 +62,7 @@ See the main README for Arduino IDE instructions.
 
 ## Serial output / verification
 
-After power-on open a terminal at 115200 baud:
+After power-on open a terminal at 921600 baud:
 
 ```
 [AP] ===============================================

@@ -209,7 +209,7 @@ arduino-cli upload -p /dev/cu.usbmodemXXXX --fqbn esp32:esp32:esp32doit-devkit-v
 
 ### Verify the link + CSI before touching the Mac
 
-1. Open ESP32-A's serial (115200): expect `[AP]` startup info, then
+1. Open ESP32-A's serial (921600): expect `[AP]` startup info, then
    `stations=1` once B connects.
 2. Open ESP32-B's serial: expect `[RX]` connection info and a fresh JSON
    line per probe with `"csi":[` entries at `TRAFFIC_RATE_HZ`.
